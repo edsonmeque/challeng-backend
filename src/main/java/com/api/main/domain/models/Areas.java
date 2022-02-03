@@ -1,6 +1,7 @@
 package com.api.main.domain.models;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Areas {
 
+	//======================================variables======================================
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -25,10 +27,12 @@ public class Areas {
 	@Column(name="unit", length = 16)
 	private String unit;
 	
+	//====================================== Relationship==================================
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Countries countrie;
 	
+	//========================================Construtors ==================================
 	public Areas() {
 	
 	}
@@ -46,6 +50,8 @@ public class Areas {
 		this.unit = unit;
 		this.countrie = countrie;
 	}
+	
+	//========================================== Get and Set Methods==========================
 
 	public Countries getCountrie() {
 		return countrie;
@@ -78,6 +84,12 @@ public class Areas {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+
+	@Override
+	public String toString() {
+		return "Areas [id=" + id + ", length=" + length + ", unit=" + unit + ", countrie=" + countrie + "]";
+	}
+	
 	
 }
 

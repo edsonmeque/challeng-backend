@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class SubRegions {
 
+	//======================================variables======================================
 	@Id
 	@GeneratedValue(strategy =GenerationType.IDENTITY )
 	private Integer id;
@@ -19,20 +20,23 @@ public class SubRegions {
 	@Column(name="name",length = 128)
 	private String name;
 	
+	//====================================== Relationship==================================
 	@JsonIgnore
 	@ManyToOne
 	private Regions region;
 
+	//========================================Construtors ==================================
 	public SubRegions() {
 
 	}
-
-	public SubRegions(Integer id, String name, Regions region) {
+	
+	public SubRegions(String name, Regions region) {
 		
-		this.id = id;
 		this.name = name;
 	this.region = region;
 	}
+	
+	//========================================== Get and Set Methods==========================
 
 	public Integer getId() {
 		return id;
@@ -57,4 +61,11 @@ public class SubRegions {
 	public void setRegion(Regions region) {
 		this.region = region;
 	}
+
+	@Override
+	public String toString() {
+		return "SubRegions [id=" + id + ", name=" + name + ", region=" + region + "]";
+	}
+	
+	
 }

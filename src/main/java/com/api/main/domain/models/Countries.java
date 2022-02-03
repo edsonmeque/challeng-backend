@@ -17,9 +17,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Countries {
 
+	//======================================variables======================================
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id; 
+	private Integer id; //
 	
 	@Column(name="name", length = 128)
 	private String name;
@@ -27,14 +28,17 @@ public class Countries {
 	@Column(name="capital",length = 128)
 	private String Capital;
 	
+	//====================================== Relationship==================================
+	
 	@OneToMany(targetEntity = Regions.class,cascade =CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="countrie_id",referencedColumnName = "id")
 	private List<Regions> regions = new ArrayList<>();
 		
-	@OneToOne(targetEntity = Areas.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name="area_id",referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "countrie")
+	@JoinColumn(name="countrie_id",referencedColumnName = "id")
 	private  Areas area;
 
+	//========================================Construtors ==================================
 	public Countries() {
 	}
 
@@ -46,11 +50,10 @@ public class Countries {
 		this.area = area;
 	}
 
+	//========================================== Get and Set Methods==========================
 	public Integer getId() {
 		return id;
 	}
-
-	
 
 	public String getName() {
 		return name;
@@ -82,6 +85,12 @@ public class Countries {
 
 	public void setAreas(Areas area) {
 		this.area = area;
+	}
+
+	@Override
+	public String toString() {
+		return "Countries [id=" + id + ", name=" + name + ", Capital=" + Capital + ", regions=" + regions + ", area="
+				+ area + "]";
 	}
 	
 }

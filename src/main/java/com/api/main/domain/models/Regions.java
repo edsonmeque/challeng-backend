@@ -19,13 +19,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Regions {
-
+	
+	//======================================variables======================================
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="name",length = 128)
 	private String name;
+	
+	//====================================== Relationship==================================
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="countrie_id")
@@ -35,10 +38,20 @@ public class Regions {
 	@JoinColumn(name="region_id",referencedColumnName = "id")
 	private List<SubRegions> sub_regions = new ArrayList<>();
 	
+	//========================================Construtors ==================================
 	public Regions() {
 		
 	}
+	
+	
+	public Regions(String name, Countries countrie, List<SubRegions> sub_regions) {
+		this.name = name;
+		this.countrie = countrie;
+		this.sub_regions = sub_regions;
+	}
 
+
+	//========================================== Get and Set Methods==========================
 	
 	public List<SubRegions> getSub_regions() {
 		return sub_regions;
@@ -70,6 +83,12 @@ public class Regions {
 
 	public void setCountrie(Countries countrie) {
 		this.countrie = countrie;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Regions [id=" + id + ", name=" + name + ", countrie=" + countrie + ", sub_regions=" + sub_regions + "]";
 	}
 	
 
